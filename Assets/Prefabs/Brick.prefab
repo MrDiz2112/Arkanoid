@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6844016867466252889}
   - component: {fileID: 4933250400615657777}
-  - component: {fileID: -3376260336128169246}
   - component: {fileID: -2738725249207741668}
   - component: {fileID: 2452911642869205509}
+  - component: {fileID: -3376260336128169246}
   m_Layer: 0
   m_Name: Brick
   m_TagString: Untagged
@@ -82,25 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3376260336128169246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6534192226907737512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f360f067913bd6141850e40eb73dc77b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brickSprites:
-  - {fileID: -1366766465942184471, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
-  - {fileID: 7921037507398607173, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
-  - {fileID: 7819536456002520588, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
-  - {fileID: 5070769990690387149, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
-  - {fileID: -3779186519106647, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
-  - {fileID: -1974514670907360931, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
 --- !u!61 &-2738725249207741668
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +127,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3376260336128169246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6534192226907737512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f360f067913bd6141850e40eb73dc77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickSprites:
+  - {fileID: -1366766465942184471, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  - {fileID: 7921037507398607173, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  - {fileID: 7819536456002520588, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  - {fileID: 5070769990690387149, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  - {fileID: -3779186519106647, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  - {fileID: -1974514670907360931, guid: 6b22cf8e3f16f714d96d12fd99bf6d68, type: 3}
+  animator: {fileID: 2452911642869205509}
+  spriteRenderer: {fileID: 4933250400615657777}
+  boxCollider2D: {fileID: -2738725249207741668}

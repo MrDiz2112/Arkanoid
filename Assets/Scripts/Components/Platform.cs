@@ -14,11 +14,11 @@ namespace Components
         private float _sizeX = 2.0f;
         private float _sizeY = 0.5f;
 
-        private Camera _mainCamera;
+        private Camera _mainCamera = null;
         
-        private float _cameraWidth;
-        private float _cameraHeight;
-        private Vector3 _cameraPosition;
+        private float _cameraWidth = 1.0f;
+        private float _cameraHeight = 1.0f;
+        private Vector3 _cameraPosition = Vector3.zero;
         
 
         // Start is called before the first frame update
@@ -26,14 +26,14 @@ namespace Components
         {
             var brickSizeX = GameManager.Instance.BrickSizeX;
             var brickSizeY = GameManager.Instance.BrickSizeY;
-
+            
             _sizeX *= brickSizeX;
             _sizeY *= brickSizeY;
 
             var platformTransform = transform;
             platformTransform.localScale = new Vector2( _sizeX, _sizeY);
             
-            _mainCamera = GameManager.Instance.mainCamera.GetComponent<Camera>();
+            _mainCamera = GameManager.Instance.mainCamera;
             _cameraHeight = _mainCamera.GetHeight();
             _cameraWidth = _mainCamera.GetWidth();
             _cameraPosition = _mainCamera.transform.position;
@@ -51,6 +51,7 @@ namespace Components
             {
                 var contact = other.GetContact(other.contactCount - 1);
 
+                // calculate new ball angle using ball contact position to the platform center
                 var distanceFromCenter = (contact.point.x - _positionX) / _sizeX;
                 var newDirection = new Vector3(distanceFromCenter, 1);
                 newDirection.Normalize();
@@ -70,12 +71,15 @@ namespace Components
 
             var offsetX = _sizeX / 2.0f;
 
+            // limit platform movement with camera width
+            // and platform half size
             _positionX = Mathf.Clamp(mouseX, 
                 _cameraPosition.x - _cameraWidth / 2.0f + offsetX, 
                 _cameraPosition.x + _cameraWidth / 2.0f - offsetX);
         
             transform.position = new Vector2(_positionX, _positionY);
 
+            // hold ball on platform until started
             if (!GameManager.Instance.IsBallLaunched && ball != null)
             {
                 ball.transform.position = new Vector2(_positionX,

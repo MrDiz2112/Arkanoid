@@ -6,10 +6,11 @@ namespace Components
     [RequireComponent((typeof(Rigidbody2D)))]
     public class Ball : MonoBehaviour
     {
+        [SerializeField]
+        private Rigidbody2D rb = null;
+        
         void Update()
         {
-            var rb = GetComponent<Rigidbody2D>();
-        
             if (Input.GetMouseButtonDown(0) && !GameManager.Instance.IsBallLaunched)
             {
                 GameManager.Instance.StartGame();

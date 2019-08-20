@@ -11,38 +11,34 @@ namespace Managers
         public static GameManager Instance { get; set; } = null;
 
         [Header("Префабы")]
-        public GameObject platformPrefab;
-        public GameObject ballPrefab;
-        public GameObject brickPrefab;
-        public GameObject borderPrefab;
+        public GameObject platformPrefab = null;
+        public GameObject ballPrefab = null;
+        public GameObject brickPrefab = null;
+        public GameObject borderPrefab = null;
         
         [Header("Объекты")]
-        public GameObject mainCamera;
-        public GameObject endGamePanel;
-        public GameObject startMenu;
-        public Slider gridSizeSlider;
-        public Text gridSizeText;
+        public Camera mainCamera = null;
+        public GameObject endGamePanel = null;
+        public Text endGameText = null;
+        public GameObject startMenu = null;
+        public Slider gridSizeSlider = null;
+        public Text gridSizeText = null;
 
         public int BrickSizeX { get; } = 2;
         public int BrickSizeY { get; } = 1;
 
-        private int _gridSize;
+        private int _gridSize = 5;
 
-        private float _ballForce;
+        public float BallForce { get; private set; } = 100.0f;
 
-        public float BallForce
-        {
-            get => _ballForce;
-            private set => _ballForce = value;
-        }
         private float _startForce = 100.0f;
 
         private float _platformOffset = 1.0f;
         
-        private GameObject _ball;
-        private GameObject _platform;
-        private GameObject _grid;
-        private GameObject _border;
+        private GameObject _ball  = null;
+        private GameObject _platform = null;
+        private GameObject _grid = null;
+        private GameObject _border = null;
         
         private bool _isBallLaunched = false;
 
@@ -109,6 +105,8 @@ namespace Managers
             startMenu.SetActive(false);
 
             _gridSize = (int)gridSizeSlider.value;
+            
+            // adjust force to level size
             BallForce = _startForce * _gridSize;
             
             SetupLevel();
@@ -129,8 +127,9 @@ namespace Managers
 
         private void SetupCamera()
         {
-            mainCamera.GetComponent<Camera>().orthographicSize = _gridSize * BrickSizeY;
+            mainCamera.orthographicSize = _gridSize * BrickSizeY;
         
+            // align camera to the center of grid bottom line
             mainCamera.transform.position = new Vector3(_gridSize * BrickSizeX / 2.0f,
                 _gridSize * BrickSizeY, -10);
         }
@@ -146,6 +145,7 @@ namespace Managers
                     var offsetX = BrickSizeX / 2.0f;
                     var offsetY = BrickSizeY / 2.0f;
                 
+                    // bring bricks up on gridSizeY cell count
                     var brick = Instantiate(brickPrefab, 
                         new Vector2(i * BrickSizeX + offsetX, 
                             j * BrickSizeY + offsetY + _gridSize * BrickSizeY), 
@@ -161,14 +161,15 @@ namespace Managers
         {
             _border = Instantiate(borderPrefab, mainCamera.transform.position, Quaternion.identity);
 
-            var width = mainCamera.GetComponent<Camera>().GetWidth();
-            var height = mainCamera.GetComponent<Camera>().GetHeight();
+            var width = mainCamera.GetWidth();
+            var height = mainCamera.GetHeight();
             
             _border.transform.localScale = new Vector2(width, height);
         }
         
         private void SetupPlatform()
         {
+            // game field center
             var centerX = _gridSize * BrickSizeX / 2.0f;
 
             _platform = Instantiate(platformPrefab, 
@@ -203,8 +204,7 @@ namespace Managers
             _isBallLaunched = false;
             Destroy(_ball.gameObject);
 
-            var endGameText = endGamePanel.transform.GetChild(0);
-            endGameText.gameObject.GetComponent<Text>().text = endText;
+            endGameText.text = endText;
             endGamePanel.SetActive(true);
         }
 

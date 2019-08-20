@@ -10,13 +10,14 @@ namespace Managers
 
         [Header("Звуки")] 
         [SerializeField]
-        private AudioClip hitSound;
+        private AudioClip hitSound = null;
         [SerializeField]
-        private AudioClip loseSound;
+        private AudioClip loseSound = null;
         [SerializeField]
-        private AudioClip winSound;
+        private AudioClip winSound = null;
 
-        private AudioSource _audioSource;
+        [SerializeField]
+        private AudioSource audioSource = null;
         
         private void Start()
         {
@@ -30,23 +31,21 @@ namespace Managers
             }
 
             DontDestroyOnLoad(gameObject);
-
-            _audioSource = GetComponent<AudioSource>();
         }
 
         public void HitSound()
         {
-            _audioSource.PlayOneShot(hitSound);
+            audioSource.PlayOneShot(hitSound);
         }
         
         public void LoseSound()
         {
-            _audioSource.PlayOneShot(loseSound);
+            audioSource.PlayOneShot(loseSound);
         }
         
         public void WinSound()
         {
-            _audioSource.PlayOneShot(winSound);
+            audioSource.PlayOneShot(winSound);
         }
     }
 }

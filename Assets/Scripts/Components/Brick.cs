@@ -13,21 +13,22 @@ namespace Components
     public class Brick: MonoBehaviour
     {
         [SerializeField]
-        private Sprite[] brickSprites;
+        private Sprite[] brickSprites = null;
 
-        private Animator _animator;
-        private SpriteRenderer _spriteRenderer;
-        private BoxCollider2D _collider;
+        [SerializeField]
+        private Animator animator = null;
+        
+        [SerializeField]
+        private SpriteRenderer spriteRenderer = null;
+        
+        [SerializeField]
+        private BoxCollider2D boxCollider2D = null;
         
         private void Start()
         {
             transform.localScale = new Vector2(GameManager.Instance.BrickSizeX, GameManager.Instance.BrickSizeY);
 
-            _animator = GetComponent<Animator>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _collider = GetComponent<BoxCollider2D>();
-
-            _animator.enabled = false;
+            animator.enabled = false;
             
             SetColor();
         }
@@ -55,8 +56,8 @@ namespace Components
             {
                 var sprite = brickSprites[(int) color];
                 
-                _spriteRenderer.sprite = sprite;
-                _spriteRenderer.size = new Vector2(1, 1);
+                spriteRenderer.sprite = sprite;
+                spriteRenderer.size = new Vector2(1, 1);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -67,10 +68,10 @@ namespace Components
 
         private IEnumerator DestroyBrick()
         {
-            _animator.enabled = true;
-            _collider.enabled = false;
+            animator.enabled = true;
+            boxCollider2D.enabled = false;
             
-            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
             
             Destroy(gameObject);
         }
